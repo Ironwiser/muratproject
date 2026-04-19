@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="88" viewBox="0 0 320 88" role="img" aria-labelledby="title desc">
+  <title id="title">Berlgrün GmbH Logo</title>
+  <desc id="desc">Berlgrün GmbH wordmark</desc>
+  <rect width="320" height="88" fill="none"/>
+  <text x="0" y="42" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="1.5">BERLGRÜN</text>
+  <rect x="236" y="12" width="12" height="34" transform="skewX(-20)" fill="#1e40af"/>
+  <text x="2" y="74" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="4">GMBH</text>
+</svg>
