@@ -8,7 +8,7 @@ SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
 sed -i 's/\r$//' "$SCRIPT_PATH" 2>/dev/null || true
 
 NAME="muratproje"
-DOMAIN="${DOMAIN:-muratproje.omurgenc.dev}"
+DOMAIN="${DOMAIN:-belgrun.omurgenc.dev}"
 APP_DIR="${APP_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 DEPLOY_ENV="$APP_DIR/deploy/.env.production"
 ROOT_ENV="$APP_DIR/.env.production"
@@ -34,7 +34,7 @@ echo "Production env guncelleniyor..."
 if [ ! -f "$DEPLOY_ENV" ]; then
   echo "  deploy/.env.production yok - ornekten olusturuluyor."
   cp "$EXAMPLE_ENV" "$DEPLOY_ENV"
-  sed -i "s|muratproje.omurgenc.dev|${DOMAIN}|g" "$DEPLOY_ENV"
+  sed -i "s|belgrun.omurgenc.dev|${DOMAIN}|g" "$DEPLOY_ENV"
 fi
 
 if [ -f "$DEPLOY_ENV" ] && [ -s "$DEPLOY_ENV" ]; then
@@ -66,7 +66,7 @@ if [ -d /etc/nginx/sites-available ] && [ -f "$APP_DIR/deploy/nginx.conf" ]; the
   sudo rm -f /etc/nginx/sites-enabled/muratproje 2>/dev/null || true
   sudo rm -f /etc/nginx/sites-available/muratproje 2>/dev/null || true
   NGINX_TMP=$(mktemp)
-  sed -e "s|muratproje.omurgenc.dev|${DOMAIN}|g" \
+  sed -e "s|belgrun.omurgenc.dev|${DOMAIN}|g" \
       -e "s|/var/www/muratproje|${APP_DIR}|g" \
       "$APP_DIR/deploy/nginx.conf" > "$NGINX_TMP"
   sudo cp "$NGINX_TMP" /etc/nginx/sites-available/muratproje

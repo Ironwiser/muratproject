@@ -34,7 +34,7 @@ chmod +x deploy/deploy.sh
 DOMAIN=site.com ./deploy/deploy.sh
 ```
 
-Varsayilan domain: `muratproje.omurgenc.dev`
+Varsayilan domain: `belgrun.omurgenc.dev`
 
 ## 4) Guncelleme
 
