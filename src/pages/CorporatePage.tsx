@@ -567,7 +567,7 @@ export function CorporatePage() {
                   }}
                 />
                 <Box component="ol" sx={{ m: 0, pl: 2.6, display: "grid", gap: 1.1, listStyleType: "none" }}>
-                  {copy.cards.map((card, index) => (
+                  {copy.cards.map((card) => (
                     <Box key={card.title} component="li">
                       <Typography
                         sx={{

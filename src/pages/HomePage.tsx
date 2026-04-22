@@ -81,6 +81,17 @@ const copyByLocale: Record<
   de: {
     heroSlides: [
       {
+        title: "Gartenflächen mit klarer Gestaltung",
+        subtitle: "Moderne Wege, ruhige Linien und gepflegte Außenbereiche.",
+        lines: [
+          "Wir planen und realisieren Garten- und Außenanlagen",
+          "mit strukturiertem Aufbau, hochwertigen Materialien",
+          "und einem klaren Blick für langlebige Qualität.",
+        ],
+        buttonText: "Leistung ansehen",
+        background: "/images/hero/hero-0.png",
+      },
+      {
         title: "Starker Auftakt auf der Baustelle",
         subtitle: "Klare Abläufe mit dem richtigen Equipment.",
         lines: ["Mit passendem Geräteeinsatz, präziser Koordination", "und robusten Prozessen schaffen wir einen sicheren Start.", "So beginnt jedes Projekt strukturiert und verlässlich."],
@@ -131,6 +142,17 @@ const copyByLocale: Record<
   },
   tr: {
     heroSlides: [
+      {
+        title: "Bahçede net ve modern tasarım",
+        subtitle: "Düzenli yürüyüş yolları ve estetik dış mekan uygulamaları.",
+        lines: [
+          "Bahçe ve dış mekan projelerini planlı süreçlerle",
+          "doğru malzeme seçimi ve temiz işçilik anlayışıyla",
+          "uzun ömürlü, dengeli ve şık şekilde tamamlıyoruz.",
+        ],
+        buttonText: "Hizmetleri Gör",
+        background: "/images/hero/hero-0.png",
+      },
       {
         title: "Sahada Güçlü Başlangıç",
         subtitle: "İşe güven veren güçlü başlangıç.",
@@ -242,6 +264,17 @@ const copyByLocale: Record<
   },
   en: {
     heroSlides: [
+      {
+        title: "Clean and Modern Garden Design",
+        subtitle: "Structured pathways and elegant outdoor execution.",
+        lines: [
+          "We deliver garden and outdoor projects with",
+          "careful planning, quality materials, and",
+          "a long-term focus on function and visual balance.",
+        ],
+        buttonText: "View Services",
+        background: "/images/hero/hero-0.png",
+      },
       {
         title: "Strong Start on Site",
         subtitle: "A strong first impression on site.",
@@ -398,7 +431,7 @@ export function HomePage() {
   useEffect(() => {
     const autoplayInterval = window.setInterval(() => {
       runFadeTransition(1);
-    }, 10000);
+    }, 18000);
 
     return () => window.clearInterval(autoplayInterval);
   }, [copy.heroSlides.length, transitionMs]);
@@ -560,10 +593,10 @@ export function HomePage() {
           spacing={1.2}
           sx={{ position: "absolute", right: { xs: 68, md: 86 }, bottom: { xs: 58, md: 72 }, zIndex: 2 }}
         >
-          <Button onClick={goPrevSlide} aria-label="Previous slide" sx={{ minWidth: 0, width: 42, height: 42, color: "#fff", backgroundColor: "primary.main", "&:hover": { backgroundColor: "#0a3a86", transform: "translateY(-2px)" }, transition: "all .25s ease" }}>
+          <Button onClick={goPrevSlide} aria-label="Previous slide" sx={{ minWidth: 0, width: 50, height: 50, color: "#fff", backgroundColor: "primary.main", "&:hover": { backgroundColor: "#0a3a86", transform: "translateY(-2px)" }, transition: "all .25s ease" }}>
             <ChevronLeftIcon />
           </Button>
-          <Button onClick={goNextSlide} aria-label="Next slide" sx={{ minWidth: 0, width: 42, height: 42, color: "#fff", backgroundColor: "primary.main", "&:hover": { backgroundColor: "#0a3a86", transform: "translateY(-2px)" }, transition: "all .25s ease" }}>
+          <Button onClick={goNextSlide} aria-label="Next slide" sx={{ minWidth: 0, width: 50, height: 50, color: "#fff", backgroundColor: "primary.main", "&:hover": { backgroundColor: "#0a3a86", transform: "translateY(-2px)" }, transition: "all .25s ease" }}>
             <ChevronRightIcon />
           </Button>
         </Stack>
