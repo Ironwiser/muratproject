@@ -1,8 +1,27 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Paper, Typography } from "@mui/material";
 import { useLocale } from "../context/locale-context";
 
 export function UeberUnsPage() {
   const { locale } = useLocale();
+  const sectionTitleSx = {
+    mb: 1.2,
+    fontWeight: 800,
+    letterSpacing: "-0.02em",
+    display: "inline-block",
+    position: "relative",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      left: 0,
+      bottom: -8,
+      width: "100%",
+      height: 3,
+      borderRadius: 999,
+      background: "linear-gradient(90deg, #1e40af 0%, #60a5fa 100%)",
+      boxShadow: "0 6px 14px rgba(30,64,175,0.22)",
+    },
+  } as const;
+
   const copy = {
     de: {
       title: "Über Uns",
@@ -64,50 +83,88 @@ export function UeberUnsPage() {
   }[locale];
 
   return (
-    <Container maxWidth="lg" sx={{ py: { xs: 5, md: 8 } }}>
-      <Paper sx={{ p: { xs: 3, md: 5 }, borderRadius: 0 }}>
-        <Typography variant="h3" sx={{ mb: 1.5 }}>
-          {copy.title}
-        </Typography>
-        <Typography variant="h5" sx={{ mb: 2.5, fontWeight: 500 }}>
-          {copy.subtitle}
-        </Typography>
-        <Typography sx={{ mb: 2.2, lineHeight: 1.75 }}>
-          {copy.p1}
-        </Typography>
-        <Typography sx={{ mb: 2.2, lineHeight: 1.75 }}>
-          {copy.p2}
-        </Typography>
-        <Typography variant="h6" sx={{ mb: 1.5 }}>
-          {copy.claim}
-        </Typography>
-        <Typography variant="h5" sx={{ mb: 1.5, mt: 3 }}>
-          {copy.qTitle}
-        </Typography>
-        <Typography sx={{ mb: 1.2, whiteSpace: "pre-line", lineHeight: 1.75 }}>
-          {copy.qList}
-        </Typography>
-        <Typography sx={{ mb: 2.2, lineHeight: 1.75 }}>
-          {copy.p3}
-        </Typography>
-        <Typography variant="h5" sx={{ mb: 1.5 }}>
-          {copy.teamTitle}
-        </Typography>
-        <Typography sx={{ mb: 1.2, lineHeight: 1.75 }}>
-          {copy.p4}
-        </Typography>
-        <Typography sx={{ mb: 1.2, whiteSpace: "pre-line", lineHeight: 1.75 }}>
-          {copy.strengths}
-        </Typography>
-        <Typography sx={{ mb: 2.2, lineHeight: 1.75 }}>
-          {copy.p5}
-        </Typography>
-        <Typography variant="h5" sx={{ mb: 1.5 }}>
-          {copy.promiseTitle}
-        </Typography>
-        <Typography sx={{ whiteSpace: "pre-line", lineHeight: 1.75 }}>
-          {copy.promise}
-        </Typography>
+    <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 } }}>
+      <Paper sx={{ p: { xs: 3, md: 5 }, borderRadius: 0, border: "none", boxShadow: "none", background: "transparent" }}>
+        <Box sx={{ mb: 3.8 }}>
+          <Typography variant="h3" sx={sectionTitleSx}>
+            {copy.title}
+          </Typography>
+          <Typography variant="h5" sx={{ mt: 2.2, mb: 1.2, fontWeight: 600 }}>
+            {copy.subtitle}
+          </Typography>
+          <Typography sx={{ lineHeight: 1.75, color: "text.secondary", maxWidth: 980 }}>
+            {copy.p1}
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2.4 }}>
+          <Paper
+            sx={{
+              p: { xs: 2.25, md: 2.8 },
+              borderRadius: 0,
+              border: "1px solid rgba(15,23,42,0.14)",
+              boxShadow: "none",
+              backgroundColor: "rgba(255,255,255,0.78)",
+              backdropFilter: "blur(2px)",
+            }}
+          >
+            <Typography sx={{ mb: 1.2, lineHeight: 1.75, color: "text.secondary" }}>{copy.p2}</Typography>
+            <Typography variant="h6" sx={{ fontWeight: 700 }}>
+              {copy.claim}
+            </Typography>
+          </Paper>
+
+          <Paper
+            sx={{
+              p: { xs: 2.25, md: 2.8 },
+              borderRadius: 0,
+              border: "1px solid rgba(15,23,42,0.14)",
+              boxShadow: "none",
+              backgroundColor: "rgba(255,255,255,0.78)",
+              backdropFilter: "blur(2px)",
+            }}
+          >
+            <Typography variant="h5" sx={{ mb: 1.1, fontWeight: 700 }}>
+              {copy.qTitle}
+            </Typography>
+            <Typography sx={{ mb: 1.15, whiteSpace: "pre-line", lineHeight: 1.72 }}>{copy.qList}</Typography>
+            <Typography sx={{ lineHeight: 1.75, color: "text.secondary" }}>{copy.p3}</Typography>
+          </Paper>
+
+          <Paper
+            sx={{
+              p: { xs: 2.25, md: 2.8 },
+              borderRadius: 0,
+              border: "1px solid rgba(15,23,42,0.14)",
+              boxShadow: "none",
+              backgroundColor: "rgba(255,255,255,0.78)",
+              backdropFilter: "blur(2px)",
+            }}
+          >
+            <Typography variant="h5" sx={{ mb: 1.1, fontWeight: 700 }}>
+              {copy.teamTitle}
+            </Typography>
+            <Typography sx={{ mb: 1.15, lineHeight: 1.75, color: "text.secondary" }}>{copy.p4}</Typography>
+            <Typography sx={{ mb: 1.15, whiteSpace: "pre-line", lineHeight: 1.72 }}>{copy.strengths}</Typography>
+            <Typography sx={{ lineHeight: 1.75, color: "text.secondary" }}>{copy.p5}</Typography>
+          </Paper>
+
+          <Paper
+            sx={{
+              p: { xs: 2.25, md: 2.8 },
+              borderRadius: 0,
+              border: "1px solid rgba(15,23,42,0.14)",
+              boxShadow: "none",
+              backgroundColor: "rgba(255,255,255,0.78)",
+              backdropFilter: "blur(2px)",
+            }}
+          >
+            <Typography variant="h5" sx={{ mb: 1.1, fontWeight: 700 }}>
+              {copy.promiseTitle}
+            </Typography>
+            <Typography sx={{ whiteSpace: "pre-line", lineHeight: 1.72 }}>{copy.promise}</Typography>
+          </Paper>
+        </Box>
       </Paper>
     </Container>
   );

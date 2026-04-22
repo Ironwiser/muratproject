@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Typography } from "@mui/material";
+import { Box, Container, Divider, Paper, Typography } from "@mui/material";
 import { Navigate, useParams } from "react-router-dom";
 import { useLocale, type Locale } from "../context/locale-context";
 
@@ -23,69 +23,29 @@ type ContentGroup = "cards" | "principles" | "process";
 
 const imageLibrary: Record<CorporateKey, Record<ContentGroup, string[]>> = {
   about: {
-    cards: ["https://picsum.photos/id/1011/240/160", "https://picsum.photos/id/1015/240/160"],
-    principles: [
-      "https://picsum.photos/id/1016/240/160",
-      "https://picsum.photos/id/1021/240/160",
-      "https://picsum.photos/id/1025/240/160",
-    ],
-    process: [
-      "https://picsum.photos/id/1031/240/160",
-      "https://picsum.photos/id/1033/240/160",
-      "https://picsum.photos/id/1035/240/160",
-    ],
+    cards: ["/images/corporate/about/overview.png"],
+    principles: ["/images/corporate/about/principles.png"],
+    process: ["/images/corporate/about/process.png"],
   },
   history: {
-    cards: ["https://picsum.photos/id/1036/240/160", "https://picsum.photos/id/1037/240/160"],
-    principles: [
-      "https://picsum.photos/id/1038/240/160",
-      "https://picsum.photos/id/1039/240/160",
-      "https://picsum.photos/id/1040/240/160",
-    ],
-    process: [
-      "https://picsum.photos/id/1041/240/160",
-      "https://picsum.photos/id/1042/240/160",
-      "https://picsum.photos/id/1043/240/160",
-    ],
+    cards: ["/images/history/overview.png"],
+    principles: ["/images/history/development-path.png"],
+    process: ["/images/history/milestones.png"],
   },
   management: {
-    cards: ["https://picsum.photos/id/1044/240/160", "https://picsum.photos/id/1045/240/160"],
-    principles: [
-      "https://picsum.photos/id/1047/240/160",
-      "https://picsum.photos/id/1048/240/160",
-      "https://picsum.photos/id/1049/240/160",
-    ],
-    process: [
-      "https://picsum.photos/id/1050/240/160",
-      "https://picsum.photos/id/1051/240/160",
-      "https://picsum.photos/id/1052/240/160",
-    ],
+    cards: ["/images/corporate/management/overview.png"],
+    principles: ["/images/corporate/management/principles.png"],
+    process: ["/images/corporate/management/process.png"],
   },
   careers: {
-    cards: ["https://picsum.photos/id/1053/240/160", "https://picsum.photos/id/1054/240/160"],
-    principles: [
-      "https://picsum.photos/id/1055/240/160",
-      "https://picsum.photos/id/1056/240/160",
-      "https://picsum.photos/id/1057/240/160",
-    ],
-    process: [
-      "https://picsum.photos/id/1058/240/160",
-      "https://picsum.photos/id/1060/240/160",
-      "https://picsum.photos/id/1062/240/160",
-    ],
+    cards: ["/images/corporate/careers/overview.png"],
+    principles: ["/images/corporate/careers/principles.png"],
+    process: ["/images/corporate/careers/process.png"],
   },
   "quality-policy": {
-    cards: ["https://picsum.photos/id/1063/240/160", "https://picsum.photos/id/1065/240/160"],
-    principles: [
-      "https://picsum.photos/id/1066/240/160",
-      "https://picsum.photos/id/1067/240/160",
-      "https://picsum.photos/id/1068/240/160",
-    ],
-    process: [
-      "https://picsum.photos/id/1069/240/160",
-      "https://picsum.photos/id/1070/240/160",
-      "https://picsum.photos/id/1071/240/160",
-    ],
+    cards: ["/images/corporate/quality-policy/overview.png"],
+    principles: ["/images/corporate/quality-policy/principles.png"],
+    process: ["/images/corporate/quality-policy/process.png"],
   },
 };
 
@@ -529,6 +489,18 @@ export function CorporatePage() {
 
   const copy = contentByLocale[locale][section];
   const shared = extrasByLocale[locale][section];
+  const isLargeCorporateSection =
+    section === "about" || section === "management" || section === "careers" || section === "quality-policy";
+  const isUnifiedCorporateSection =
+    section === "about" || section === "history" || section === "management" || section === "careers" || section === "quality-policy";
+  const removeLeadingNumber = (value: string) => value.replace(/^\d+\.\s*/, "");
+  const unifiedSplitLayoutSx = isLargeCorporateSection
+    ? ({ xs: "1fr", md: "minmax(0, 1.1fr) minmax(0, 1fr)" } as const)
+    : ({ xs: "1fr", md: "minmax(0, 0.55fr) minmax(0, 1.45fr)" } as const);
+  const unifiedImageTextGapSx = isLargeCorporateSection ? ({ xs: 2, md: 2.6 } as const) : ({ xs: 2, md: 3.2 } as const);
+  const unifiedImageMinHeightSx = isLargeCorporateSection
+    ? ({ xs: 230, md: 290, lg: 320 } as const)
+    : ({ xs: 120, md: 150, lg: 165 } as const);
 
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 } }}>
@@ -560,118 +532,264 @@ export function CorporatePage() {
           {copy.intro}
         </Typography>
 
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: { xs: 1.2, md: 2.2 } }}>
-          {copy.cards.map((card, index) => (
-            <Box
-              key={card.title}
-              sx={{
-                pl: { xs: 1.3, md: 1.5 },
-                borderLeft: "3px solid rgba(30,64,175,0.55)",
-                display: "grid",
-                gridTemplateColumns: "76px 1fr",
-                gap: 1.1,
-                alignItems: "start",
-              }}
-            >
+        <Paper
+          sx={{
+            p: isUnifiedCorporateSection ? { xs: 2, md: 2.5 } : 0,
+            borderRadius: 0,
+            boxShadow: "none",
+            border: isUnifiedCorporateSection ? "1px solid rgba(15,23,42,0.12)" : "none",
+            backgroundColor: isUnifiedCorporateSection ? "rgba(255,255,255,0.72)" : "transparent",
+          }}
+        >
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : { xs: "1fr", md: "1fr 1fr" },
+              gap: isUnifiedCorporateSection ? 0 : { xs: 1.2, md: 2.2 },
+            }}
+          >
+            {isUnifiedCorporateSection ? (
               <Box
                 sx={{
-                  height: 60,
-                  borderRadius: 1,
-                  backgroundImage: `url(${getItemImage(section, "cards", index)})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  border: "1px solid rgba(15,23,42,0.16)",
+                  display: "grid",
+                  gridTemplateColumns: unifiedSplitLayoutSx,
+                  gap: unifiedImageTextGapSx,
+                  alignItems: "start",
                 }}
-              />
-              <Box>
-                <Typography sx={{ mb: 0.45, fontWeight: 700, fontSize: { xs: "1rem", md: "1.06rem" } }}>{card.title}</Typography>
-                <Typography sx={{ lineHeight: 1.68, fontSize: "0.96rem", color: "text.secondary" }}>{card.text}</Typography>
+              >
+                <Box
+                  sx={{
+                    minHeight: unifiedImageMinHeightSx,
+                    borderRadius: 1.5,
+                    backgroundImage: `url(${getItemImage(section, "cards", 0)})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
+                <Box component="ol" sx={{ m: 0, pl: 2.6, display: "grid", gap: 1.1, listStyleType: "none" }}>
+                  {copy.cards.map((card, index) => (
+                    <Box key={card.title} component="li">
+                      <Typography
+                        sx={{
+                          mb: 0.55,
+                          fontWeight: 700,
+                          fontSize: isLargeCorporateSection ? { xs: "1.2rem", md: "1.4rem" } : { xs: "1rem", md: "1.06rem" },
+                        }}
+                      >
+                        {removeLeadingNumber(card.title)}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          lineHeight: isLargeCorporateSection ? 1.75 : 1.68,
+                          fontSize: isLargeCorporateSection ? "1rem" : "0.96rem",
+                          color: "text.secondary",
+                        }}
+                      >
+                        {card.text}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
               </Box>
-            </Box>
-          ))}
-        </Box>
+            ) : (
+              copy.cards.map((card, index) => (
+                <Box
+                  key={card.title}
+                  sx={{
+                    py: 0,
+                    pl: { xs: 1.3, md: 1.5 },
+                    borderLeft: "3px solid rgba(30,64,175,0.55)",
+                    display: "grid",
+                    gridTemplateColumns: "76px 1fr",
+                    gap: 1.1,
+                    alignItems: "start",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      height: 60,
+                      borderRadius: 1,
+                      backgroundImage: `url(${getItemImage(section, "cards", index)})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      border: "1px solid rgba(15,23,42,0.16)",
+                    }}
+                  />
+                  <Box>
+                    <Typography sx={{ mb: 0.45, fontWeight: 700, fontSize: { xs: "1rem", md: "1.06rem" } }}>{card.title}</Typography>
+                    <Typography sx={{ lineHeight: 1.68, fontSize: "0.96rem", color: "text.secondary" }}>{card.text}</Typography>
+                  </Box>
+                </Box>
+              ))
+            )}
+          </Box>
+          <Divider sx={{ my: { xs: 2.4, md: 3.2 }, borderColor: "rgba(15,23,42,0.12)" }} />
 
-        <Divider sx={{ my: { xs: 2.4, md: 3.2 }, borderColor: "rgba(15,23,42,0.12)" }} />
-
-        <Typography variant="h5" sx={{ mt: 3.2, mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
-          {shared.principlesTitle}
-        </Typography>
-        <Box component="ol" sx={{ m: 0, pl: 2.6, display: "grid", gap: 1.1 }}>
-          {shared.principles.map((item, index) => (
-            <Box
-              key={item.title}
-              sx={{
-                pr: { xs: 0.4, md: 0.8 },
-                display: "grid",
-                gridTemplateColumns: "64px 1fr",
-                gap: 1,
-                alignItems: "start",
-              }}
-              component="li"
-            >
+          <Typography variant="h5" sx={{ mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
+            {shared.principlesTitle}
+          </Typography>
+          <Box
+            sx={{
+              display: isUnifiedCorporateSection ? "grid" : "block",
+              gridTemplateColumns: isUnifiedCorporateSection ? unifiedSplitLayoutSx : undefined,
+              gap: isUnifiedCorporateSection ? unifiedImageTextGapSx : undefined,
+              alignItems: isUnifiedCorporateSection ? "start" : undefined,
+            }}
+          >
+            {isUnifiedCorporateSection && (
               <Box
                 sx={{
-                  height: 52,
-                  borderRadius: 1,
-                  backgroundImage: `url(${getItemImage(section, "principles", index)})`,
+                  minHeight: unifiedImageMinHeightSx,
+                  borderRadius: 1.5,
+                  backgroundImage: `url(${getItemImage(section, "principles", 0)})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  border: "1px solid rgba(15,23,42,0.16)",
                 }}
               />
-              <Box>
-                <Typography sx={{ mb: 0.35, fontWeight: 700, fontSize: "0.98rem" }}>{item.title}</Typography>
-                <Typography sx={{ lineHeight: 1.62, fontSize: "0.94rem", color: "text.secondary" }}>{item.text}</Typography>
+            )}
+            <Box component="ol" sx={{ m: 0, pl: 2.6, display: "grid", gap: 1.1, listStyleType: isUnifiedCorporateSection ? "none" : "decimal" }}>
+            {shared.principles.map((item, index) => (
+              <Box
+                key={item.title}
+                sx={{
+                  pr: { xs: 0.4, md: 0.8 },
+                  display: isUnifiedCorporateSection ? "block" : "grid",
+                  gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : "64px 1fr",
+                  gap: isUnifiedCorporateSection ? 0 : 1,
+                  alignItems: "start",
+                }}
+                component="li"
+              >
+                {!isUnifiedCorporateSection && (
+                  <Box
+                    sx={{
+                      height: 52,
+                      borderRadius: 1,
+                      backgroundImage: `url(${getItemImage(section, "principles", index)})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      border: "1px solid rgba(15,23,42,0.16)",
+                    }}
+                  />
+                )}
+                <Box>
+                  <Typography
+                    sx={{
+                      mb: 0.5,
+                      fontWeight: 700,
+                      fontSize: isLargeCorporateSection ? { xs: "1.12rem", md: "1.28rem" } : "0.98rem",
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      lineHeight: isLargeCorporateSection ? 1.75 : 1.62,
+                      fontSize: isLargeCorporateSection ? "1rem" : "0.94rem",
+                      color: "text.secondary",
+                    }}
+                  >
+                    {item.text}
+                  </Typography>
+                </Box>
               </Box>
+            ))}
             </Box>
-          ))}
-        </Box>
+          </Box>
 
-        <Typography variant="h5" sx={{ mt: 3.4, mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
-          {shared.processTitle}
-        </Typography>
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1fr" }, gap: { xs: 1.2, md: 2 } }}>
-          {shared.process.map((step, index) => (
-            <Box
-              key={step.title}
-              sx={{
-                pt: 1.1,
-                pr: 0.5,
-                borderTop: "1px solid rgba(30,64,175,0.3)",
-                display: "grid",
-                gridTemplateColumns: "64px 1fr",
-                gap: 1,
-                alignItems: "start",
-              }}
-            >
+          {isUnifiedCorporateSection && <Divider sx={{ my: { xs: 2.4, md: 3.2 }, borderColor: "rgba(15,23,42,0.12)" }} />}
+
+          <Typography variant="h5" sx={{ mt: 3.4, mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
+            {shared.processTitle}
+          </Typography>
+          <Box
+            sx={{
+              display: isUnifiedCorporateSection ? "grid" : "block",
+              gridTemplateColumns: isUnifiedCorporateSection ? unifiedSplitLayoutSx : undefined,
+              gap: isUnifiedCorporateSection ? unifiedImageTextGapSx : undefined,
+              alignItems: isUnifiedCorporateSection ? "start" : undefined,
+            }}
+          >
+            {isUnifiedCorporateSection && (
               <Box
                 sx={{
-                  height: 52,
-                  borderRadius: 1,
-                  backgroundImage: `url(${getItemImage(section, "process", index)})`,
+                  minHeight: unifiedImageMinHeightSx,
+                  borderRadius: 1.5,
+                  backgroundImage: `url(${getItemImage(section, "process", 0)})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  border: "1px solid rgba(15,23,42,0.16)",
                 }}
               />
-              <Box>
-                <Typography sx={{ mb: 0.5, fontWeight: 700, fontSize: "0.98rem" }}>{step.title}</Typography>
-                <Typography sx={{ lineHeight: 1.65, fontSize: "0.94rem", color: "text.secondary" }}>{step.text}</Typography>
+            )}
+            <Box
+              component={isUnifiedCorporateSection ? "ol" : "div"}
+              sx={{
+                m: isUnifiedCorporateSection ? 0 : undefined,
+                pl: isUnifiedCorporateSection ? 2.6 : undefined,
+                listStyleType: isUnifiedCorporateSection ? "none" : undefined,
+                display: "grid",
+                gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : { xs: "1fr", md: "1fr 1fr 1fr" },
+                gap: isUnifiedCorporateSection ? 1.1 : { xs: 1.2, md: 2 },
+              }}
+            >
+            {shared.process.map((step, index) => (
+              <Box
+                key={step.title}
+                component={isUnifiedCorporateSection ? "li" : "div"}
+                sx={{
+                  pt: isUnifiedCorporateSection ? 0 : 1.1,
+                  pr: isUnifiedCorporateSection ? 0 : 0.5,
+                  borderTop: isUnifiedCorporateSection ? "none" : "1px solid rgba(30,64,175,0.3)",
+                  display: isUnifiedCorporateSection ? "block" : "grid",
+                  gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : "64px 1fr",
+                  gap: isUnifiedCorporateSection ? 0 : 1,
+                  alignItems: "start",
+                }}
+              >
+                {!isUnifiedCorporateSection && (
+                  <Box
+                    sx={{
+                      height: 52,
+                      borderRadius: 1,
+                      backgroundImage: `url(${getItemImage(section, "process", index)})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      border: "1px solid rgba(15,23,42,0.16)",
+                    }}
+                  />
+                )}
+                <Box>
+                  <Typography sx={{ mb: 0.5, fontWeight: 700, fontSize: "0.98rem" }}>
+                    {isUnifiedCorporateSection ? removeLeadingNumber(step.title) : step.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      lineHeight: isLargeCorporateSection ? 1.75 : 1.65,
+                      fontSize: isLargeCorporateSection ? "1rem" : "0.94rem",
+                      color: "text.secondary",
+                    }}
+                  >
+                    {step.text}
+                  </Typography>
+                </Box>
               </Box>
+            ))}
             </Box>
-          ))}
-        </Box>
+          </Box>
 
-        <Typography variant="h5" sx={{ mt: 3.4, mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
-          {shared.detailTitle}
-        </Typography>
-        <Box sx={{ display: "grid", gap: 1.1, maxWidth: 1080 }}>
-          {shared.details.map((paragraph, index) => (
-            <Typography key={`${shared.detailTitle}-${index}`} sx={{ lineHeight: 1.74, fontSize: "0.97rem", color: "text.secondary" }}>
-              {paragraph}
-            </Typography>
-          ))}
-        </Box>
+          {isUnifiedCorporateSection && <Divider sx={{ my: { xs: 2.4, md: 3.2 }, borderColor: "rgba(15,23,42,0.12)" }} />}
+
+          <Typography variant="h5" sx={{ mt: 3.4, mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
+            {shared.detailTitle}
+          </Typography>
+          <Box sx={{ display: "grid", gap: 1.1, maxWidth: 1080 }}>
+            {shared.details.map((paragraph, index) => (
+              <Typography key={`${shared.detailTitle}-${index}`} sx={{ lineHeight: 1.74, fontSize: "0.97rem", color: "text.secondary" }}>
+                {paragraph}
+              </Typography>
+            ))}
+          </Box>
+        </Paper>
       </Box>
     </Container>
   );

@@ -35,6 +35,7 @@ export function SiteLayout() {
       privacy: "Datenschutz",
       footerBrand: "Berlgrün GmbH",
       footerCopy: "©Urheberrecht. Alle Rechte vorbehalten.",
+      footerCredit: "Website by Ömür Genç",
       menuItems: [
         { label: "Über uns", to: "/kurumsal/about" },
         { label: "Geschichte", to: "/kurumsal/history" },
@@ -53,6 +54,7 @@ export function SiteLayout() {
       privacy: "Gizlilik",
       footerBrand: "Berlgrün GmbH",
       footerCopy: "©Telif hakkı. Tüm hakları saklıdır.",
+      footerCredit: "Web sitesi: Ömür Genç",
       menuItems: [
         { label: "Hakkımızda", to: "/kurumsal/about" },
         { label: "Tarihçemiz", to: "/kurumsal/history" },
@@ -71,6 +73,7 @@ export function SiteLayout() {
       privacy: "Privacy",
       footerBrand: "Berlgrün GmbH",
       footerCopy: "©Copyright. All rights reserved.",
+      footerCredit: "Website by Ömür Genç",
       menuItems: [
         { label: "About Us", to: "/kurumsal/about" },
         { label: "Our History", to: "/kurumsal/history" },
@@ -265,6 +268,9 @@ export function SiteLayout() {
             <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.72)", lineHeight: 1.2 }}>
               {copy.footerCopy}
             </Typography>
+            <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.72)", lineHeight: 1.2 }}>
+              {copy.footerCredit}
+            </Typography>
           </Stack>
         </Container>
       </Box>
@@ -284,6 +290,10 @@ export function SiteLayout() {
           borderRadius: "50%",
           backgroundColor: "primary.main",
           color: "#fff",
+          opacity: scrolled ? 1 : 0,
+          transform: scrolled ? "translateY(0)" : "translateY(10px)",
+          pointerEvents: scrolled ? "auto" : "none",
+          transition: "opacity 180ms ease, transform 180ms ease",
           "&:hover": { backgroundColor: "#0a3a86" },
         }}
       >

@@ -394,6 +394,15 @@ export function HomePage() {
       queuedStepRef.current = 0;
     };
   }, []);
+
+  useEffect(() => {
+    const autoplayInterval = window.setInterval(() => {
+      runFadeTransition(1);
+    }, 10000);
+
+    return () => window.clearInterval(autoplayInterval);
+  }, [copy.heroSlides.length, transitionMs]);
+
   const sectionTitleSx = {
     mb: 1.2,
     fontWeight: 800,
