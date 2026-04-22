@@ -398,10 +398,10 @@ export function ServiceDetailPage() {
             <Typography sx={{ lineHeight: 1.75, maxWidth: 1100, mb: 1.35 }}>{detail.body}</Typography>
 
             <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: { xs: 1.35, md: 2.3 } }}>
-              <Box sx={{ pb: 1.1, borderBottom: "1px solid rgba(255,255,255,0.24)" }}>
+              <Box sx={{ pb: 1.1 }}>
                 <Typography sx={{ lineHeight: 1.7 }}>{detail.whatIsText}</Typography>
               </Box>
-              <Box sx={{ pb: 1.1, borderBottom: "1px solid rgba(255,255,255,0.24)" }}>
+              <Box sx={{ pb: 1.1 }}>
                 <Box component="ol" sx={{ m: 0, pl: 2.2, lineHeight: 1.68 }}>
                   {detail.howToSteps.map((step) => (
                     <Box component="li" key={`${detail.title}-${step}`} sx={{ mb: 0.35 }}>

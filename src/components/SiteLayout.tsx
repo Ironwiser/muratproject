@@ -18,6 +18,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link as RouterLink, Outlet } from "react-router-dom";
 import { useLocale } from "../context/locale-context";
+import { SeoHead } from "./SeoHead";
 
 export function SiteLayout() {
   const [scrolled, setScrolled] = useState(false);
@@ -93,6 +94,7 @@ export function SiteLayout() {
 
   return (
     <Box sx={{ minHeight: "100vh", backgroundColor: "background.default", display: "flex", flexDirection: "column" }}>
+      <SeoHead />
       <AppBar
         position="sticky"
         elevation={0}

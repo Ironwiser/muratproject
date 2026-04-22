@@ -12,6 +12,8 @@ const STORAGE_KEY = "berlgruen-locale";
 
 function readLocale(): Locale {
   if (typeof window === "undefined") return "de";
+  const fromQuery = new URLSearchParams(window.location.search).get("lang");
+  if (fromQuery === "de" || fromQuery === "tr" || fromQuery === "en") return fromQuery;
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved === "de" || saved === "tr" || saved === "en") return saved;
   return "de";
@@ -23,6 +25,13 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const setLocale = (value: Locale) => {
     setLocaleState(value);
     localStorage.setItem(STORAGE_KEY, value);
+    const url = new URL(window.location.href);
+    if (value === "de") {
+      url.searchParams.delete("lang");
+    } else {
+      url.searchParams.set("lang", value);
+    }
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
   };
 
   useEffect(() => {
