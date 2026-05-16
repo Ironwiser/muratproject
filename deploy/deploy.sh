@@ -50,6 +50,19 @@ echo ""
 # --- 3) Build ---
 echo "Bagimliliklar ve build..."
 cd "$FRONTEND_DIR"
+
+# Eski deploy'lardan kalan, artik repoda olmayan kaynak dosyalari kaldir
+for STALE_FILE in \
+  "src/pages/UeberUnsPage.tsx" \
+  "src/components/PageHeroTitle.tsx" \
+  "src/App.css"
+do
+  if [ -f "$FRONTEND_DIR/$STALE_FILE" ]; then
+    rm -f "$FRONTEND_DIR/$STALE_FILE"
+    echo "  Kaldirildi (eski kalinti): $STALE_FILE"
+  fi
+done
+
 npm ci --include=dev
 npm run build
 if [ ! -f "$FRONTEND_DIR/dist/index.html" ]; then

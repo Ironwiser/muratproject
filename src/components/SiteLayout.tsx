@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AppBar,
   Box,
@@ -47,6 +47,11 @@ const footerSectionTitleSx = {
   mb: 1.75,
 } as const;
 
+const NAVBAR_SCROLL_DOWN = 40;
+const NAVBAR_SCROLL_UP = 8;
+const BACK_TO_TOP_SHOW = 240;
+const BACK_TO_TOP_HIDE = 160;
+
 const footerLinkSx = {
   color: "rgba(255,255,255,0.78)",
   textDecoration: "none",
@@ -63,6 +68,9 @@ const footerLinkSx = {
 
 export function SiteLayout() {
   const [scrolled, setScrolled] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const scrolledRef = useRef(false);
+  const showBackToTopRef = useRef(false);
   const [aboutMenuOpen, setAboutMenuOpen] = useState(false);
   const [aboutMenuAnchor, setAboutMenuAnchor] = useState<HTMLElement | null>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -150,10 +158,38 @@ export function SiteLayout() {
   }[locale];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
+    let frame = 0;
+
+    const syncScrollState = () => {
+      const y = window.scrollY;
+
+      const nextScrolled = scrolledRef.current ? y > NAVBAR_SCROLL_UP : y > NAVBAR_SCROLL_DOWN;
+      if (nextScrolled !== scrolledRef.current) {
+        scrolledRef.current = nextScrolled;
+        setScrolled(nextScrolled);
+      }
+
+      const nextShowBackToTop = showBackToTopRef.current ? y > BACK_TO_TOP_HIDE : y > BACK_TO_TOP_SHOW;
+      if (nextShowBackToTop !== showBackToTopRef.current) {
+        showBackToTopRef.current = nextShowBackToTop;
+        setShowBackToTop(nextShowBackToTop);
+      }
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        syncScrollState();
+      });
+    };
+
+    syncScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const closeMobileNav = () => {
@@ -201,23 +237,34 @@ export function SiteLayout() {
   );
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "background.default", display: "flex", flexDirection: "column", overflowX: "hidden" }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        backgroundColor: "background.default",
+        display: "flex",
+        flexDirection: "column",
+        overflowX: "hidden",
+        "--layout-header-height": "62px",
+      }}
+    >
       <SeoHead />
       <AppBar
-        position="sticky"
+        position="fixed"
         elevation={0}
         sx={{
+          top: 0,
+          left: 0,
+          right: 0,
           backgroundColor: scrolled ? "rgba(10,12,17,0.97)" : "rgba(10,12,17,0.82)",
-          transition: "all 260ms ease",
+          transition: "background-color 260ms ease, box-shadow 260ms ease",
           boxShadow: scrolled ? "0 10px 30px rgba(0,0,0,0.28)" : "none",
           backdropFilter: "blur(7px)",
         }}
       >
         <Toolbar
           sx={{
-            minHeight: { xs: 62, md: scrolled ? 62 : 68 },
+            minHeight: { xs: 62, md: 62 },
             gap: 2,
-            transition: "all 260ms ease",
             px: { xs: 2, sm: 3, md: 6 },
           }}
         >
@@ -410,7 +457,15 @@ export function SiteLayout() {
         </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <Box
+        component="main"
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          pt: "var(--layout-header-height)",
+        }}
+      >
         <Outlet />
       </Box>
 
@@ -607,10 +662,12 @@ export function SiteLayout() {
           borderRadius: "50%",
           backgroundColor: "primary.main",
           color: "#fff",
-          opacity: scrolled ? 1 : 0,
-          transform: scrolled ? "translateY(0)" : "translateY(10px)",
-          pointerEvents: scrolled ? "auto" : "none",
-          transition: "opacity 180ms ease, transform 180ms ease",
+          opacity: showBackToTop ? 1 : 0,
+          visibility: showBackToTop ? "visible" : "hidden",
+          transform: showBackToTop ? "translateY(0)" : "translateY(10px)",
+          pointerEvents: showBackToTop ? "auto" : "none",
+          transition: "opacity 220ms ease, transform 220ms ease, visibility 220ms ease",
+          zIndex: 1200,
           "&:hover": { backgroundColor: "#0a3a86" },
         }}
       >

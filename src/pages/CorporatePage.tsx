@@ -16,8 +16,6 @@ type SectionExtras = {
   principles: { title: string; text: string }[];
   processTitle: string;
   process: { title: string; text: string }[];
-  detailTitle: string;
-  details: string[];
 };
 
 type ContentGroup = "cards" | "principles" | "process";
@@ -199,11 +197,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Konzept abstimmen", text: "Wir übersetzen Anforderungen in ein umsetzbares Konzept mit klaren Arbeitspaketen." },
         { title: "3. Verlässlich umsetzen", text: "Während der Ausführung halten wir Sie proaktiv informiert und sichern die Qualität." },
       ],
-      detailTitle: "Vertiefende Einordnung",
-      details: [
-        "Unsere Leistungen verbinden technisches Know-how mit einem klaren Verständnis für wirtschaftliche und organisatorische Anforderungen. Dadurch entstehen Lösungen, die nicht nur im Moment funktionieren, sondern langfristig tragfähig bleiben.",
-        "Besonderen Wert legen wir auf nachvollziehbare Entscheidungen und eine realistische Planung. So erhalten Auftraggeber eine verlässliche Grundlage für Budget, Zeit und Qualität - vom ersten Gespräch bis zur finalen Übergabe.",
-      ],
     },
     history: {
       principlesTitle: "Unsere Entwicklung",
@@ -217,11 +210,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "1. Aufbauphase", text: "Start mit regionalen Bau- und Pflegeaufträgen, Fokus auf saubere Ausführung und Kundennähe." },
         { title: "2. Spezialisierung", text: "Erweiterung in Sanierung, Winterdienst und Außenanlagen mit klarer Qualitätslinie." },
         { title: "3. Skalierung", text: "Heute steuern wir Projekte strukturiert über eingespielte Teams und feste Abläufe." },
-      ],
-      detailTitle: "Vertiefende Einordnung",
-      details: [
-        "Unsere Entwicklung war nie zufällig, sondern das Ergebnis konsequenter Weiterentwicklung in Prozessen, Teamstruktur und Leistungsbreite. Jede Phase hat dazu beigetragen, unsere Arbeitsweise belastbarer und effizienter zu machen.",
-        "Gerade in anspruchsvollen Projekten profitieren Kunden heute von dieser gewachsenen Erfahrung: Risiken werden früher erkannt, Abläufe besser koordiniert und Entscheidungen fundierter getroffen.",
       ],
     },
     management: {
@@ -237,11 +225,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Ressourcensteuerung", text: "Personal, Material und Zeitfenster werden bedarfsgerecht geplant." },
         { title: "3. Qualitätssicherung", text: "Regelmäßige Reviews stellen sicher, dass Soll- und Ist-Zustand übereinstimmen." },
       ],
-      detailTitle: "Vertiefende Einordnung",
-      details: [
-        "Ein wirksames Management schafft Orientierung auf der Baustelle und Verlässlichkeit für Auftraggeber. Deshalb verbinden wir operative Nähe mit systematischer Steuerung und dokumentierten Entscheidungen.",
-        "Unser Führungsansatz ist praxisnah: kurze Entscheidungswege, klare Verantwortlichkeiten und ein permanenter Blick auf Sicherheit, Qualität und Termine.",
-      ],
     },
     careers: {
       principlesTitle: "Was wir als Arbeitgeber bieten",
@@ -256,11 +239,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Kennenlernen", text: "In einem persönlichen Gespräch prüfen wir fachliche und menschliche Passung." },
         { title: "3. Einstieg", text: "Nach Zusage begleiten wir den Start strukturiert mit klarer Einarbeitung." },
       ],
-      detailTitle: "Vertiefende Einordnung",
-      details: [
-        "Wir verstehen Personalentwicklung als langfristige Investition in Qualität. Fachliche Kompetenz, Verlässlichkeit und Teamfähigkeit sind dabei zentrale Bausteine unserer Zusammenarbeit.",
-        "Neue Kolleginnen und Kollegen werden nicht nur eingearbeitet, sondern aktiv in unsere Abläufe integriert. So entsteht ein stabiles Team, das Projekte sicher und effizient realisieren kann.",
-      ],
     },
     "quality-policy": {
       principlesTitle: "Qualitätsgrundsätze",
@@ -274,11 +252,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "1. Vorgaben definieren", text: "Vor Start werden Anforderungen, Toleranzen und Prüfpunkte verbindlich festgelegt." },
         { title: "2. Ausführung prüfen", text: "Während der Umsetzung erfolgen laufende Kontrollen durch verantwortliche Fachkräfte." },
         { title: "3. Ergebnis freigeben", text: "Abschlusskontrolle und dokumentierte Freigabe sichern ein belastbares Endergebnis." },
-      ],
-      detailTitle: "Vertiefende Einordnung",
-      details: [
-        "Qualitätssicherung bedeutet für uns mehr als Endkontrolle. Bereits in der Planungsphase definieren wir klare Kriterien, um Abweichungen frühzeitig zu vermeiden.",
-        "Durch konsequente Prüfschritte während der Ausführung erreichen wir ein konstantes Qualitätsniveau, das sowohl technische Anforderungen als auch Kundenerwartungen erfüllt.",
       ],
     },
   },
@@ -296,11 +269,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Plan & Kapsam", text: "Uygulanabilir bir iş planı ve net kapsam oluştururuz." },
         { title: "3. Kontrollü Uygulama", text: "Sahada düzenli takip ve kalite kontrol ile işi tamamlarız." },
       ],
-      detailTitle: "Detaylı Değerlendirme",
-      details: [
-        "Hizmet yaklaşımımız, teknik doğruluk ile operasyonel gerçekçiliği bir araya getirir. Bu sayede sadece kısa vadeli değil, uzun vadede de sürdürülebilir sonuçlar üretiriz.",
-        "Planlama aşamasından itibaren şeffaf iletişim kurarak beklentileri netleştirir, uygulama sırasında düzenli bilgilendirme ile süreci kontrol altında tutarız.",
-      ],
     },
     history: {
       principlesTitle: "Gelişim Yolculuğumuz",
@@ -314,11 +282,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "1. Başlangıç", text: "Bölgesel projelerde güçlü saha performansı ile temelimizi oluşturduk." },
         { title: "2. Uzmanlaşma", text: "Renovasyon, dış mekan ve kış hizmetlerinde uzman ekipler kurduk." },
         { title: "3. Olgunlaşma", text: "Bugün daha büyük işleri planlı ve ölçülebilir süreçlerle yönetiyoruz." },
-      ],
-      detailTitle: "Detaylı Değerlendirme",
-      details: [
-        "Kurumsal gelişimimiz, her projeden elde edilen deneyimi süreçlere entegre etme anlayışı üzerine kuruludur. Bu yaklaşım operasyon kalitesini her yıl daha ileri taşımamızı sağlamıştır.",
-        "Bugün ulaştığımız yapı; güçlü saha koordinasyonu, standartlaşmış kalite adımları ve disiplinli planlama sayesinde daha karmaşık işlerde dahi yüksek performans sunar.",
       ],
     },
     management: {
@@ -334,11 +297,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Kaynak Planlama", text: "Ekip, malzeme ve takvim verimli olacak şekilde planlanır." },
         { title: "3. Sonuç Kontrolü", text: "Teslim öncesi tüm çıktılar kalite açısından doğrulanır." },
       ],
-      detailTitle: "Detaylı Değerlendirme",
-      details: [
-        "Yönetim modelimiz sahadaki hız ile kurumsal denetimi dengeler. Böylece kararlar hızlı alınırken kalite, maliyet ve süre hedeflerinden taviz verilmez.",
-        "Her proje özelinde sorumluluk alanları net tanımlanır; düzenli kontrol toplantılarıyla olası riskler erken tespit edilip önleyici adımlar devreye alınır.",
-      ],
     },
     careers: {
       principlesTitle: "İşveren Olarak Yaklaşımımız",
@@ -353,11 +311,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Görüşme", text: "Teknik uyum ve ekip uyumu birlikte değerlendirilir." },
         { title: "3. Uyum Süreci", text: "İşe başlangıç sonrası planlı bir oryantasyon uygulanır." },
       ],
-      detailTitle: "Detaylı Değerlendirme",
-      details: [
-        "İnsan kaynağını kalite standardımızın temel bileşeni olarak görüyoruz. Bu nedenle işe alım sürecinde yalnızca teknik yeterlilik değil, sorumluluk bilinci ve ekip uyumu da değerlendirilir.",
-        "Çalışan gelişimi için yapılandırılmış bir yaklaşım benimsiyoruz: görev netliği, saha desteği ve düzenli geri bildirim ile performansın sürdürülebilir şekilde artmasını hedefliyoruz.",
-      ],
     },
     "quality-policy": {
       principlesTitle: "Kalite Esaslarımız",
@@ -371,11 +324,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "1. Kriter Belirleme", text: "İşe başlamadan önce kalite kriterleri açıkça tanımlanır." },
         { title: "2. Aşamalı Denetim", text: "Uygulama boyunca kritik noktalarda ara kontroller yapılır." },
         { title: "3. Nihai Onay", text: "Teslim öncesi son kalite kontrol tamamlanarak onaylanır." },
-      ],
-      detailTitle: "Detaylı Değerlendirme",
-      details: [
-        "Kalite politikamız, her projede ölçülebilir standartlar belirleyip uygulamanın her adımında bu standartları doğrulama prensibine dayanır.",
-        "Bu sistematik yaklaşım sayesinde hem teknik gereklilikleri hem de müşteri beklentilerini aynı anda karşılayan, güvenilir ve tekrar edilebilir sonuçlar elde ederiz.",
       ],
     },
   },
@@ -393,11 +341,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Define Execution Plan", text: "Scope and sequence are translated into a practical delivery roadmap." },
         { title: "3. Execute with Control", text: "Implementation is monitored closely with regular quality checkpoints." },
       ],
-      detailTitle: "In-Depth Perspective",
-      details: [
-        "Our service philosophy combines technical accuracy with operational practicality. This allows us to deliver outcomes that remain effective and durable over time.",
-        "From early planning onward, we prioritize transparent communication and clear expectations, ensuring controlled execution and reliable decision-making throughout the project.",
-      ],
     },
     history: {
       principlesTitle: "Our Development Path",
@@ -411,11 +354,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "1. Foundation", text: "Started with regional projects and a strong focus on execution quality." },
         { title: "2. Specialization", text: "Expanded capabilities across renovation, outdoor works and winter services." },
         { title: "3. Maturity", text: "Now delivering broader projects through structured and measurable operations." },
-      ],
-      detailTitle: "In-Depth Perspective",
-      details: [
-        "Our growth has been shaped by continuous refinement of processes, team capabilities and delivery standards. Each stage contributed to a more resilient operating model.",
-        "Today, clients benefit from this accumulated experience through better risk anticipation, tighter coordination and more consistent project outcomes.",
       ],
     },
     management: {
@@ -431,11 +369,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Resource Allocation", text: "People, time and materials are planned for efficient execution." },
         { title: "3. Performance Review", text: "Output is validated through structured quality and completion checks." },
       ],
-      detailTitle: "In-Depth Perspective",
-      details: [
-        "Our management model balances fast on-site decisions with structured governance. As a result, projects stay agile without compromising quality or control.",
-        "Defined responsibilities, regular review cycles and proactive issue handling create predictable progress and stable delivery performance.",
-      ],
     },
     careers: {
       principlesTitle: "Our Employer Approach",
@@ -449,11 +382,6 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "1. Apply", text: "Candidates share relevant experience and role expectations." },
         { title: "2. Interview", text: "Technical fit and team compatibility are assessed together." },
         { title: "3. Onboarding", text: "A structured onboarding process ensures smooth integration." },
-      ],
-      detailTitle: "In-Depth Perspective",
-      details: [
-        "We treat workforce development as a long-term quality driver. Recruitment focuses on both technical capability and professional mindset.",
-        "Through structured onboarding and continuous support, new team members quickly integrate into our standards and contribute effectively to project delivery.",
       ],
     },
     "quality-policy": {
@@ -469,17 +397,21 @@ const extrasByLocale: Record<Locale, Record<CorporateKey, SectionExtras>> = {
         { title: "2. Stage Inspections", text: "Critical steps are verified through ongoing intermediate inspections." },
         { title: "3. Final Validation", text: "Final checks confirm compliance before project handover." },
       ],
-      detailTitle: "In-Depth Perspective",
-      details: [
-        "Our quality policy goes beyond final inspection by embedding measurable requirements from the planning phase onward.",
-        "This disciplined verification model enables consistent quality, higher reliability and outcomes that satisfy both technical standards and client expectations.",
-      ],
     },
   },
 };
 
 function isCorporateKey(value: string | undefined): value is CorporateKey {
   return value === "about" || value === "history" || value === "management" || value === "careers" || value === "quality-policy";
+}
+
+function joinBlockTitles(items: { title: string }[], locale: Locale) {
+  const separator = locale === "tr" ? " ve " : locale === "de" ? " und " : " and ";
+  return items.map((item) => item.title).join(separator);
+}
+
+function joinBlockText(items: { text: string }[]) {
+  return items.map((item) => item.text).join(" ");
 }
 
 export function CorporatePage() {
@@ -490,18 +422,27 @@ export function CorporatePage() {
 
   const copy = contentByLocale[locale][section];
   const shared = extrasByLocale[locale][section];
-  const isLargeCorporateSection =
-    section === "about" || section === "management" || section === "careers" || section === "quality-policy";
-  const isUnifiedCorporateSection =
-    section === "about" || section === "history" || section === "management" || section === "careers" || section === "quality-policy";
-  const removeLeadingNumber = (value: string) => value.replace(/^\d+\.\s*/, "");
-  const unifiedSplitLayoutSx = isLargeCorporateSection
-    ? ({ xs: "1fr", md: "minmax(0, 1.1fr) minmax(0, 1fr)" } as const)
-    : ({ xs: "1fr", md: "minmax(0, 0.55fr) minmax(0, 1.45fr)" } as const);
-  const unifiedImageTextGapSx = isLargeCorporateSection ? ({ xs: 2, md: 2.6 } as const) : ({ xs: 2, md: 3.2 } as const);
-  const unifiedImageMinHeightSx = isLargeCorporateSection
-    ? ({ xs: 230, md: 290, lg: 320 } as const)
-    : ({ xs: 120, md: 150, lg: 165 } as const);
+  const unifiedSplitLayoutSx = { xs: "1fr", md: "minmax(0, 1.1fr) minmax(0, 1fr)" } as const;
+  const unifiedImageTextGapSx = { xs: 2, md: 2.6 } as const;
+  const unifiedImageMinHeightSx = { xs: 230, md: 290, lg: 320 } as const;
+
+  const contentBlocks = [
+    {
+      title: joinBlockTitles(copy.cards, locale),
+      text: joinBlockText(copy.cards),
+      image: getItemImage(section, "cards", 0),
+    },
+    {
+      title: shared.principlesTitle,
+      text: joinBlockText(shared.principles),
+      image: getItemImage(section, "principles", 0),
+    },
+    {
+      title: shared.processTitle,
+      text: joinBlockText(shared.process),
+      image: getItemImage(section, "process", 0),
+    },
+  ];
 
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 }, px: { xs: 2, sm: 3 } }}>
@@ -536,21 +477,16 @@ export function CorporatePage() {
 
         <Paper
           sx={{
-            p: isUnifiedCorporateSection ? { xs: 2, md: 2.5 } : 0,
+            p: { xs: 2, md: 2.5 },
             borderRadius: 0,
             boxShadow: "none",
-            border: isUnifiedCorporateSection ? "1px solid rgba(15,23,42,0.12)" : "none",
-            backgroundColor: isUnifiedCorporateSection ? "rgba(255,255,255,0.72)" : "transparent",
+            border: "1px solid rgba(15,23,42,0.12)",
+            backgroundColor: "rgba(255,255,255,0.72)",
           }}
         >
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : { xs: "1fr", md: "1fr 1fr" },
-              gap: isUnifiedCorporateSection ? 0 : { xs: 1.2, md: 2.2 },
-            }}
-          >
-            {isUnifiedCorporateSection ? (
+          {contentBlocks.map((block, index) => (
+            <Box key={`${block.title}-${index}`}>
+              {index > 0 ? <Divider sx={{ my: { xs: 2.4, md: 3.2 }, borderColor: "rgba(15,23,42,0.12)" }} /> : null}
               <Box
                 sx={{
                   display: "grid",
@@ -563,237 +499,35 @@ export function CorporatePage() {
                   sx={{
                     minHeight: unifiedImageMinHeightSx,
                     borderRadius: 1.5,
-                    backgroundImage: `url(${getItemImage(section, "cards", 0)})`,
+                    backgroundImage: `url(${block.image})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
                 />
-                <Box component="ol" sx={{ m: 0, pl: 2.6, display: "grid", gap: 1.1, listStyleType: "none" }}>
-                  {copy.cards.map((card) => (
-                    <Box key={card.title} component="li">
-                      <Typography
-                        sx={{
-                          mb: 0.55,
-                          fontWeight: 700,
-                          fontSize: isLargeCorporateSection ? { xs: "1.2rem", md: "1.4rem" } : { xs: "1rem", md: "1.06rem" },
-                        }}
-                      >
-                        {removeLeadingNumber(card.title)}
-                      </Typography>
-                      <Typography
-                        sx={{
-                          lineHeight: isLargeCorporateSection ? 1.75 : 1.68,
-                          fontSize: isLargeCorporateSection ? "1rem" : "0.96rem",
-                          color: "text.secondary",
-                        }}
-                      >
-                        {card.text}
-                      </Typography>
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-            ) : (
-              copy.cards.map((card, index) => (
-                <Box
-                  key={card.title}
-                  sx={{
-                    py: 0,
-                    pl: { xs: 1.3, md: 1.5 },
-                    borderLeft: "3px solid rgba(30,64,175,0.55)",
-                    display: "grid",
-                    gridTemplateColumns: { xs: "1fr", sm: "76px 1fr" },
-                    gap: { xs: 1, sm: 1.1 },
-                    alignItems: "start",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      height: { xs: 140, sm: 60 },
-                      width: { xs: "100%", sm: 76 },
-                      borderRadius: 1,
-                      backgroundImage: `url(${getItemImage(section, "cards", index)})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      border: "1px solid rgba(15,23,42,0.16)",
-                    }}
-                  />
-                  <Box>
-                    <Typography sx={{ mb: 0.45, fontWeight: 700, fontSize: { xs: "1rem", md: "1.06rem" } }}>{card.title}</Typography>
-                    <Typography sx={{ lineHeight: 1.68, fontSize: "0.96rem", color: "text.secondary" }}>{card.text}</Typography>
-                  </Box>
-                </Box>
-              ))
-            )}
-          </Box>
-          <Divider sx={{ my: { xs: 2.4, md: 3.2 }, borderColor: "rgba(15,23,42,0.12)" }} />
-
-          <Typography variant="h5" sx={{ mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
-            {shared.principlesTitle}
-          </Typography>
-          <Box
-            sx={{
-              display: isUnifiedCorporateSection ? "grid" : "block",
-              gridTemplateColumns: isUnifiedCorporateSection ? unifiedSplitLayoutSx : undefined,
-              gap: isUnifiedCorporateSection ? unifiedImageTextGapSx : undefined,
-              alignItems: isUnifiedCorporateSection ? "start" : undefined,
-            }}
-          >
-            {isUnifiedCorporateSection && (
-              <Box
-                sx={{
-                  minHeight: unifiedImageMinHeightSx,
-                  borderRadius: 1.5,
-                  backgroundImage: `url(${getItemImage(section, "principles", 0)})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              />
-            )}
-            <Box component="ol" sx={{ m: 0, pl: 2.6, display: "grid", gap: 1.1, listStyleType: isUnifiedCorporateSection ? "none" : "decimal" }}>
-            {shared.principles.map((item, index) => (
-              <Box
-                key={item.title}
-                sx={{
-                  pr: { xs: 0.4, md: 0.8 },
-                  display: isUnifiedCorporateSection ? "block" : "grid",
-                  gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : { xs: "1fr", sm: "64px 1fr" },
-                  gap: isUnifiedCorporateSection ? 0 : { xs: 1, sm: 1 },
-                  alignItems: "start",
-                }}
-                component="li"
-              >
-                {!isUnifiedCorporateSection && (
-                  <Box
-                    sx={{
-                      height: { xs: 120, sm: 52 },
-                      width: { xs: "100%", sm: 64 },
-                      borderRadius: 1,
-                      backgroundImage: `url(${getItemImage(section, "principles", index)})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      border: "1px solid rgba(15,23,42,0.16)",
-                    }}
-                  />
-                )}
                 <Box>
                   <Typography
                     sx={{
-                      mb: 0.5,
+                      mb: 1,
                       fontWeight: 700,
-                      fontSize: isLargeCorporateSection ? { xs: "1.12rem", md: "1.28rem" } : "0.98rem",
+                      fontSize: { xs: "1.2rem", md: "1.35rem" },
+                      letterSpacing: "-0.01em",
                     }}
                   >
-                    {item.title}
+                    {block.title}
                   </Typography>
                   <Typography
                     sx={{
-                      lineHeight: isLargeCorporateSection ? 1.75 : 1.62,
-                      fontSize: isLargeCorporateSection ? "1rem" : "0.94rem",
+                      lineHeight: 1.75,
+                      fontSize: "1rem",
                       color: "text.secondary",
                     }}
                   >
-                    {item.text}
+                    {block.text}
                   </Typography>
                 </Box>
               </Box>
-            ))}
             </Box>
-          </Box>
-
-          {isUnifiedCorporateSection && <Divider sx={{ my: { xs: 2.4, md: 3.2 }, borderColor: "rgba(15,23,42,0.12)" }} />}
-
-          <Typography variant="h5" sx={{ mt: 3.4, mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
-            {shared.processTitle}
-          </Typography>
-          <Box
-            sx={{
-              display: isUnifiedCorporateSection ? "grid" : "block",
-              gridTemplateColumns: isUnifiedCorporateSection ? unifiedSplitLayoutSx : undefined,
-              gap: isUnifiedCorporateSection ? unifiedImageTextGapSx : undefined,
-              alignItems: isUnifiedCorporateSection ? "start" : undefined,
-            }}
-          >
-            {isUnifiedCorporateSection && (
-              <Box
-                sx={{
-                  minHeight: unifiedImageMinHeightSx,
-                  borderRadius: 1.5,
-                  backgroundImage: `url(${getItemImage(section, "process", 0)})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              />
-            )}
-            <Box
-              component={isUnifiedCorporateSection ? "ol" : "div"}
-              sx={{
-                m: isUnifiedCorporateSection ? 0 : undefined,
-                pl: isUnifiedCorporateSection ? 2.6 : undefined,
-                listStyleType: isUnifiedCorporateSection ? "none" : undefined,
-                display: "grid",
-                gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : { xs: "1fr", md: "1fr 1fr 1fr" },
-                gap: isUnifiedCorporateSection ? 1.1 : { xs: 1.2, md: 2 },
-              }}
-            >
-            {shared.process.map((step, index) => (
-              <Box
-                key={step.title}
-                component={isUnifiedCorporateSection ? "li" : "div"}
-                sx={{
-                  pt: isUnifiedCorporateSection ? 0 : 1.1,
-                  pr: isUnifiedCorporateSection ? 0 : 0.5,
-                  borderTop: isUnifiedCorporateSection ? "none" : "1px solid rgba(30,64,175,0.3)",
-                  display: isUnifiedCorporateSection ? "block" : "grid",
-                  gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : { xs: "1fr", sm: "64px 1fr" },
-                  gap: isUnifiedCorporateSection ? 0 : { xs: 1, sm: 1 },
-                  alignItems: "start",
-                }}
-              >
-                {!isUnifiedCorporateSection && (
-                  <Box
-                    sx={{
-                      height: { xs: 120, sm: 52 },
-                      width: { xs: "100%", sm: 64 },
-                      borderRadius: 1,
-                      backgroundImage: `url(${getItemImage(section, "process", index)})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      border: "1px solid rgba(15,23,42,0.16)",
-                    }}
-                  />
-                )}
-                <Box>
-                  <Typography sx={{ mb: 0.5, fontWeight: 700, fontSize: "0.98rem" }}>
-                    {isUnifiedCorporateSection ? removeLeadingNumber(step.title) : step.title}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      lineHeight: isLargeCorporateSection ? 1.75 : 1.65,
-                      fontSize: isLargeCorporateSection ? "1rem" : "0.94rem",
-                      color: "text.secondary",
-                    }}
-                  >
-                    {step.text}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
-            </Box>
-          </Box>
-
-          {isUnifiedCorporateSection && <Divider sx={{ my: { xs: 2.4, md: 3.2 }, borderColor: "rgba(15,23,42,0.12)" }} />}
-
-          <Typography variant="h5" sx={{ mt: 3.4, mb: 1.4, fontWeight: 800, letterSpacing: "-0.01em" }}>
-            {shared.detailTitle}
-          </Typography>
-          <Box sx={{ display: "grid", gap: 1.1, maxWidth: 1080 }}>
-            {shared.details.map((paragraph, index) => (
-              <Typography key={`${shared.detailTitle}-${index}`} sx={{ lineHeight: 1.74, fontSize: "0.97rem", color: "text.secondary" }}>
-                {paragraph}
-              </Typography>
-            ))}
-          </Box>
+          ))}
         </Paper>
       </Box>
     </Container>

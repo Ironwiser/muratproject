@@ -17,6 +17,9 @@ const serviceCards = [
   { image: "/images/services/kis-hizmetleri.png", slug: "winterdienst" },
   { image: "/images/services/tas-doseme-ve-dis-mekan.png", slug: "pflaster-aussenarbeiten" },
 ];
+const heroViewportHeight = "calc(100dvh - var(--layout-header-height, 62px))";
+const heroViewportHeightFallback = "calc(100vh - var(--layout-header-height, 62px))";
+
 const serviceSlugs = [
   "tiefbau-erschliessung",
   "hochbau-innenausbau",
@@ -520,8 +523,9 @@ export function HomePage() {
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
-          height: { xs: "calc(100dvh - 62px)", md: "calc(100vh - 68px)" },
-          minHeight: { xs: "calc(100dvh - 62px)", md: "calc(100vh - 68px)" },
+          height: [heroViewportHeightFallback, heroViewportHeight],
+          minHeight: [heroViewportHeightFallback, heroViewportHeight],
+          flexShrink: 0,
           color: "#fff",
         }}
       >
