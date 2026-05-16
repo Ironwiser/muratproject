@@ -1,5 +1,5 @@
 import { Container, Paper, Typography } from "@mui/material";
-import { useLocale } from "../context/locale-context";
+import { useLocale } from "../context/use-locale";
 
 export function DatenschutzPage() {
   const { locale } = useLocale();
@@ -31,9 +31,9 @@ export function DatenschutzPage() {
   }[locale];
 
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 5, md: 8 } }}>
+    <Container maxWidth="md" sx={{ py: { xs: 5, md: 8 }, px: { xs: 2, sm: 3 } }}>
       <Paper sx={{ p: { xs: 3, md: 5 }, borderRadius: 0 }}>
-        <Typography variant="h3" sx={{ mb: 3 }}>
+        <Typography component="h1" variant="h3" sx={{ mb: 3 }}>
           {copy.title}
         </Typography>
         <Typography component="p" sx={{ mb: 2 }}>

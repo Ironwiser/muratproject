@@ -59,6 +59,16 @@ fi
 echo "  Frontend build tamam (dist/index.html mevcut)."
 echo ""
 
+# --- 3b) SEO dosyalarinda domain yer tutucusunu doldur ---
+SITE_URL="https://${DOMAIN}"
+for SEO_FILE in robots.txt sitemap.xml; do
+  if [ -f "$FRONTEND_DIR/dist/$SEO_FILE" ]; then
+    sed -i "s|__SITE_URL__|${SITE_URL}|g" "$FRONTEND_DIR/dist/$SEO_FILE"
+    echo "  dist/$SEO_FILE -> ${SITE_URL}"
+  fi
+done
+echo ""
+
 # --- 4) Nginx ---
 echo "Nginx config guncelleniyor..."
 if [ -d /etc/nginx/sites-available ] && [ -f "$APP_DIR/deploy/nginx.conf" ]; then

@@ -1,95 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://berlgruen.de/</loc>
+    <loc>__SITE_URL__/</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/leistung</loc>
+    <loc>__SITE_URL__/leistung</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kontakt</loc>
+    <loc>__SITE_URL__/kontakt</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/about</loc>
+    <loc>__SITE_URL__/impressum</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/history</loc>
+    <loc>__SITE_URL__/datenschutz</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/management</loc>
+    <loc>__SITE_URL__/kurumsal/about</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/careers</loc>
+    <loc>__SITE_URL__/kurumsal/history</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/quality-policy</loc>
-  </url>
-
-  <url>
-    <loc>https://berlgruen.de/leistung/tiefbau-erschliessung</loc>
+    <loc>__SITE_URL__/kurumsal/management</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/leistung/hochbau-innenausbau</loc>
+    <loc>__SITE_URL__/kurumsal/careers</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/leistung/sanierung-modernisierung</loc>
-  </url>
-  <url>
-    <loc>https://berlgruen.de/leistung/garten-landschaftsbau</loc>
-  </url>
-  <url>
-    <loc>https://berlgruen.de/leistung/winterdienst</loc>
-  </url>
-  <url>
-    <loc>https://berlgruen.de/leistung/pflaster-aussenarbeiten</loc>
+    <loc>__SITE_URL__/kurumsal/quality-policy</loc>
   </url>
 
   <url>
-    <loc>https://berlgruen.de/?lang=tr</loc>
+    <loc>__SITE_URL__/leistung/tiefbau-erschliessung</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/?lang=en</loc>
+    <loc>__SITE_URL__/leistung/hochbau-innenausbau</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/leistung?lang=tr</loc>
+    <loc>__SITE_URL__/leistung/sanierung-modernisierung</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/leistung?lang=en</loc>
+    <loc>__SITE_URL__/leistung/garten-landschaftsbau</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kontakt?lang=tr</loc>
+    <loc>__SITE_URL__/leistung/winterdienst</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kontakt?lang=en</loc>
+    <loc>__SITE_URL__/leistung/pflaster-aussenarbeiten</loc>
+  </url>
+
+  <url>
+    <loc>__SITE_URL__/?lang=tr</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/about?lang=tr</loc>
+    <loc>__SITE_URL__/?lang=en</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/about?lang=en</loc>
+    <loc>__SITE_URL__/leistung?lang=tr</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/history?lang=tr</loc>
+    <loc>__SITE_URL__/leistung?lang=en</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/history?lang=en</loc>
+    <loc>__SITE_URL__/kontakt?lang=tr</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/management?lang=tr</loc>
+    <loc>__SITE_URL__/kontakt?lang=en</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/management?lang=en</loc>
+    <loc>__SITE_URL__/kurumsal/about?lang=tr</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/careers?lang=tr</loc>
+    <loc>__SITE_URL__/kurumsal/about?lang=en</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/careers?lang=en</loc>
+    <loc>__SITE_URL__/kurumsal/history?lang=tr</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/quality-policy?lang=tr</loc>
+    <loc>__SITE_URL__/kurumsal/history?lang=en</loc>
   </url>
   <url>
-    <loc>https://berlgruen.de/kurumsal/quality-policy?lang=en</loc>
+    <loc>__SITE_URL__/kurumsal/management?lang=tr</loc>
+  </url>
+  <url>
+    <loc>__SITE_URL__/kurumsal/management?lang=en</loc>
+  </url>
+  <url>
+    <loc>__SITE_URL__/kurumsal/careers?lang=tr</loc>
+  </url>
+  <url>
+    <loc>__SITE_URL__/kurumsal/careers?lang=en</loc>
+  </url>
+  <url>
+    <loc>__SITE_URL__/kurumsal/quality-policy?lang=tr</loc>
+  </url>
+  <url>
+    <loc>__SITE_URL__/kurumsal/quality-policy?lang=en</loc>
   </url>
 </urlset>

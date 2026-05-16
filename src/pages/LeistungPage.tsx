@@ -1,6 +1,6 @@
 import { Box, Container, Paper, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import { useLocale } from "../context/locale-context";
+import { useLocale } from "../context/use-locale";
 
 export function LeistungPage() {
   const serviceSlugs = [
@@ -182,10 +182,10 @@ export function LeistungPage() {
   }[locale];
 
   return (
-    <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 } }}>
+    <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 }, px: { xs: 2, sm: 3 } }}>
       <Paper sx={{ p: { xs: 3, md: 5 }, borderRadius: 0, border: "none", boxShadow: "none", background: "transparent" }}>
         <Box sx={{ mb: 3.8 }}>
-          <Typography variant="h3" sx={sectionTitleSx}>
+          <Typography component="h1" variant="h3" sx={sectionTitleSx}>
             {copy.title}
           </Typography>
           <Typography sx={{ mt: 2.2, lineHeight: 1.75, color: "text.secondary", maxWidth: 980 }}>

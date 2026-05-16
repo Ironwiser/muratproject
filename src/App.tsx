@@ -7,6 +7,7 @@ import { DatenschutzPage } from "./pages/DatenschutzPage";
 import { LeistungPage } from "./pages/LeistungPage";
 import { CorporatePage } from "./pages/CorporatePage";
 import { ServiceDetailPage } from "./pages/ServiceDetailPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 export default function App() {
   return (
@@ -21,7 +22,7 @@ export default function App() {
         <Route path="impressum" element={<ImpressumPage />} />
         <Route path="datenschutz" element={<DatenschutzPage />} />
       </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

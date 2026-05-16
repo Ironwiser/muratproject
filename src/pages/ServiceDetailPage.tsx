@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import { Navigate, useParams } from "react-router-dom";
-import { useLocale, type Locale } from "../context/locale-context";
+import type { Locale } from "../context/locale";
+import { useLocale } from "../context/use-locale";
 
 type ServiceSlug =
   | "tiefbau-erschliessung"
@@ -362,9 +363,12 @@ export function ServiceDetailPage() {
     <Box sx={{ minHeight: "100%", flex: 1, display: "flex", flexDirection: "column" }}>
       <Box
         sx={{
-          minHeight: { xs: 680, md: 760 },
+          minHeight: { xs: "auto", md: 760 },
           flex: 1,
-          backgroundImage: `linear-gradient(90deg, rgba(6,7,11,0.66) 0%, rgba(6,7,11,0.34) 45%, rgba(6,7,11,0.2) 100%), url(${detail.heroImage})`,
+          backgroundImage: {
+            xs: `linear-gradient(180deg, rgba(6,7,11,0.78) 0%, rgba(6,7,11,0.5) 100%), url(${detail.heroImage})`,
+            md: `linear-gradient(90deg, rgba(6,7,11,0.66) 0%, rgba(6,7,11,0.34) 45%, rgba(6,7,11,0.2) 100%), url(${detail.heroImage})`,
+          },
           backgroundSize: "cover",
           backgroundPosition: { xs: "center 34%", md: "center 26%" },
           color: "#fff",
@@ -372,17 +376,38 @@ export function ServiceDetailPage() {
           alignItems: "stretch",
         }}
       >
-        <Container maxWidth="xl" sx={{ pt: { xs: 4.2, md: 15 }, pb: { xs: 2.2, md: 3.2 }, display: "flex", alignItems: "start" }}>
+        <Container
+          maxWidth="xl"
+          sx={{
+            pt: { xs: 3, md: 15 },
+            pb: { xs: 3, md: 3.2 },
+            px: { xs: 2, sm: 3 },
+            display: "flex",
+            alignItems: "start",
+          }}
+        >
           <Box
             sx={{
               width: "100%",
-              p: { xs: 1.8, md: 2.4 },
+              maxWidth: "100%",
+              p: { xs: 1.6, sm: 1.8, md: 2.4 },
               border: "1px solid rgba(255,255,255,0.2)",
               backgroundColor: "rgba(5,8,14,0.44)",
               backdropFilter: "blur(3px)",
             }}
           >
-            <Typography variant="h2" sx={{ fontWeight: 800, letterSpacing: "-0.02em", textShadow: "0 5px 18px rgba(0,0,0,0.45)", mb: 1.4 }}>
+            <Typography
+              component="h1"
+              variant="h2"
+              sx={{
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
+                textShadow: "0 5px 18px rgba(0,0,0,0.45)",
+                mb: 1.4,
+                fontSize: { xs: "1.55rem", sm: "1.85rem", md: "2.4rem" },
+                wordBreak: "break-word",
+              }}
+            >
               {detail.title}
             </Typography>
             <Typography sx={{ lineHeight: 1.8, fontSize: { xs: "1rem", md: "1.05rem" }, mb: 1.6 }}>

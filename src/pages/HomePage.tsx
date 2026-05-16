@@ -6,7 +6,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { RevealOnScroll } from "../components/RevealOnScroll";
-import { useLocale, type Locale } from "../context/locale-context";
+import type { Locale } from "../context/locale";
+import { useLocale } from "../context/use-locale";
 
 const serviceCards = [
   { image: "/images/services/altyapi-ve-parsel.png", slug: "tiefbau-erschliessung" },
@@ -412,6 +413,7 @@ export function HomePage() {
   const transitionLockRef = useRef(false);
   const queuedStepRef = useRef(0);
   const activeSlideRef = useRef(0);
+  const runFadeTransitionRef = useRef<(step: -1 | 1) => void>(() => undefined);
   const currentHero = copy.heroSlides[activeSlide];
   const nextHero = nextSlide !== null ? copy.heroSlides[nextSlide] : null;
   const whyBlocks = parseWhyBlocks(copy.whyText);
@@ -429,12 +431,44 @@ export function HomePage() {
   }, []);
 
   useEffect(() => {
+    runFadeTransitionRef.current = (step: -1 | 1) => {
+      if (transitionLockRef.current) {
+        queuedStepRef.current += step;
+        return;
+      }
+
+      const slideCount = copy.heroSlides.length;
+      const calculatedNext = (activeSlideRef.current + step + slideCount) % slideCount;
+      if (calculatedNext === activeSlideRef.current) return;
+
+      transitionLockRef.current = true;
+      setNextSlide(calculatedNext);
+      requestAnimationFrame(() => setIsCrossfading(true));
+
+      if (fadeTimeoutRef.current) window.clearTimeout(fadeTimeoutRef.current);
+      fadeTimeoutRef.current = window.setTimeout(() => {
+        setIsCrossfading(false);
+        setActiveSlide(calculatedNext);
+        activeSlideRef.current = calculatedNext;
+        setNextSlide(null);
+        transitionLockRef.current = false;
+
+        if (queuedStepRef.current !== 0) {
+          const nextStep: -1 | 1 = queuedStepRef.current > 0 ? 1 : -1;
+          queuedStepRef.current += nextStep === 1 ? -1 : 1;
+          runFadeTransitionRef.current(nextStep);
+        }
+      }, transitionMs);
+    };
+  }, [copy.heroSlides.length, transitionMs]);
+
+  useEffect(() => {
     const autoplayInterval = window.setInterval(() => {
-      runFadeTransition(1);
+      runFadeTransitionRef.current(1);
     }, 18000);
 
     return () => window.clearInterval(autoplayInterval);
-  }, [copy.heroSlides.length, transitionMs]);
+  }, [copy.heroSlides.length]);
 
   const sectionTitleSx = {
     mb: 1.2,
@@ -455,107 +489,176 @@ export function HomePage() {
     },
   } as const;
 
-  const runFadeTransition = (step: -1 | 1) => {
-    if (transitionLockRef.current) {
-      queuedStepRef.current += step;
-      return;
-    }
-
-    const slideCount = copy.heroSlides.length;
-    const calculatedNext = (activeSlideRef.current + step + slideCount) % slideCount;
-    if (calculatedNext === activeSlideRef.current) return;
-
-    transitionLockRef.current = true;
-    setNextSlide(calculatedNext);
-    // next frame'de opacity transition tetiklenir.
-    requestAnimationFrame(() => setIsCrossfading(true));
-
-    if (fadeTimeoutRef.current) window.clearTimeout(fadeTimeoutRef.current);
-    fadeTimeoutRef.current = window.setTimeout(() => {
-      setIsCrossfading(false);
-      setActiveSlide(calculatedNext);
-      activeSlideRef.current = calculatedNext;
-      setNextSlide(null);
-      transitionLockRef.current = false;
-
-      if (queuedStepRef.current !== 0) {
-        const nextStep: -1 | 1 = queuedStepRef.current > 0 ? 1 : -1;
-        queuedStepRef.current += nextStep === 1 ? -1 : 1;
-        runFadeTransition(nextStep);
-      }
-    }, transitionMs);
-  };
+  const heroNavButtonSx = {
+    minWidth: 0,
+    width: { xs: 44, md: 50 },
+    height: { xs: 44, md: 50 },
+    color: "#fff",
+    backgroundColor: "primary.main",
+    transform: "none",
+    transition: "background-color 0.25s ease",
+    "@media (hover: hover) and (pointer: fine)": {
+      "&:hover": {
+        backgroundColor: "#0a3a86",
+        transform: "translateY(-2px)",
+      },
+    },
+  } as const;
 
   const goPrevSlide = () => {
-    runFadeTransition(-1);
+    runFadeTransitionRef.current(-1);
   };
   const goNextSlide = () => {
-    runFadeTransition(1);
+    runFadeTransitionRef.current(1);
   };
 
   return (
     <Box id="top">
       <Box
         sx={{
-          minHeight: { xs: "calc(100vh - 62px)", md: "calc(100vh - 68px)" },
-          backgroundImage: `linear-gradient(90deg, rgba(6,7,11,0.72) 0%, rgba(6,7,11,0.48) 42%, rgba(6,7,11,0.3) 100%), url(${currentHero.background})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          color: "#fff",
-          display: "flex",
-          alignItems: "center",
           position: "relative",
           overflow: "hidden",
-          transition: `background-image ${transitionMs}ms ease`,
-          transitionProperty: "background-image",
-          transitionDuration: `${transitionMs}ms`,
-          transitionTimingFunction: "ease",
-          "&::before": {
-            content: '""',
+          display: "flex",
+          flexDirection: "column",
+          height: { xs: "calc(100dvh - 62px)", md: "calc(100vh - 68px)" },
+          minHeight: { xs: "calc(100dvh - 62px)", md: "calc(100vh - 68px)" },
+          color: "#fff",
+        }}
+      >
+        <Box
+          aria-hidden
+          sx={{
             position: "absolute",
             inset: 0,
-            pointerEvents: "none",
+            zIndex: 0,
+            backgroundImage: {
+              xs: `linear-gradient(180deg, rgba(6,7,11,0.82) 0%, rgba(6,7,11,0.62) 55%, rgba(6,7,11,0.45) 100%), url(${currentHero.background})`,
+              md: `linear-gradient(90deg, rgba(6,7,11,0.72) 0%, rgba(6,7,11,0.48) 42%, rgba(6,7,11,0.3) 100%), url(${currentHero.background})`,
+            },
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <Box
+          aria-hidden
+          sx={{
+            position: "absolute",
+            inset: 0,
             zIndex: 0,
             backgroundImage: nextHero
-              ? `linear-gradient(90deg, rgba(6,7,11,0.72) 0%, rgba(6,7,11,0.48) 42%, rgba(6,7,11,0.3) 100%), url(${nextHero.background})`
+              ? {
+                  xs: `linear-gradient(180deg, rgba(6,7,11,0.82) 0%, rgba(6,7,11,0.62) 55%, rgba(6,7,11,0.45) 100%), url(${nextHero.background})`,
+                  md: `linear-gradient(90deg, rgba(6,7,11,0.72) 0%, rgba(6,7,11,0.48) 42%, rgba(6,7,11,0.3) 100%), url(${nextHero.background})`,
+                }
               : "none",
             backgroundSize: "cover",
             backgroundPosition: "center",
             opacity: isCrossfading && nextHero ? 1 : 0,
             transition: `opacity ${transitionMs}ms ease`,
-          },
-          "&::after": {
-            content: '""',
+          }}
+        />
+        <Box
+          aria-hidden
+          sx={{
             position: "absolute",
             inset: 0,
-            pointerEvents: "none",
             zIndex: 0,
+            pointerEvents: "none",
             opacity: 0.22,
             backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.55) 1px, transparent 2.2px)",
             backgroundSize: "14px 14px",
-          },
-        }}
-      >
-        <Container maxWidth={false} disableGutters sx={{ px: { xs: 4.5, md: 8 }, width: "100%" }}>
-          <Box sx={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 520, minHeight: { xs: 360, md: 410 } }}>
+          }}
+        />
+
+        <Container
+          maxWidth={false}
+          disableGutters
+          sx={{
+            position: "relative",
+            zIndex: 1,
+            px: { xs: 2, sm: 3.5, md: 8 },
+            width: "100%",
+            height: "100%",
+            minHeight: 0,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: { xs: "flex-start", md: "center" },
+            pt: { xs: 2.5, sm: 3, md: 0 },
+            pb: { xs: 2.5, sm: 3, md: 0 },
+          }}
+        >
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              maxWidth: { xs: "100%", md: 520 },
+              flex: "1 1 0",
+              minHeight: 0,
+            }}
+          >
             <Box
               sx={{
                 position: "absolute",
                 inset: 0,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: { xs: "center", md: "center" },
+                overflow: "hidden",
                 opacity: isCrossfading ? 0 : 1,
                 transition: isCrossfading ? `opacity ${transitionMs}ms ease` : "none",
               }}
             >
-              <Typography sx={{ fontSize: { xs: "2rem", md: "3.1rem" }, lineHeight: 1.02, fontWeight: 700, mb: 0.15, letterSpacing: "-0.02em" }}>
+              <Typography
+                component="h1"
+                sx={{
+                  fontSize: { xs: "1.65rem", sm: "2rem", md: "3.1rem" },
+                  lineHeight: 1.08,
+                  fontWeight: 700,
+                  mb: { xs: 0.6, md: 0.15 },
+                  letterSpacing: "-0.02em",
+                }}
+              >
                 {currentHero.title}
               </Typography>
-              <Typography sx={{ fontSize: { xs: "1.25rem", md: "1.8rem" }, fontWeight: 400, lineHeight: 1.3, maxWidth: 640, mb: 1.8 }}>
+              <Typography
+                sx={{
+                  fontSize: { xs: "1.05rem", sm: "1.25rem", md: "1.8rem" },
+                  fontWeight: 400,
+                  lineHeight: 1.35,
+                  maxWidth: 640,
+                  mb: { xs: 1.2, md: 1.8 },
+                }}
+              >
                 {currentHero.subtitle}
               </Typography>
-              <Typography component="p" sx={{ maxWidth: 640, opacity: 0.95, lineHeight: 1.5, fontSize: { xs: "1rem", md: "1.06rem" }, mb: 3, whiteSpace: "pre-line" }}>
+              <Typography
+                component="p"
+                sx={{
+                  maxWidth: 640,
+                  opacity: 0.95,
+                  lineHeight: 1.55,
+                  fontSize: { xs: "0.94rem", md: "1.06rem" },
+                  mb: { xs: 2, md: 3 },
+                  whiteSpace: "pre-line",
+                }}
+              >
                 {currentHero.lines.join("\n")}
               </Typography>
-              <Button variant="contained" component={RouterLink} to="/kontakt" sx={{ px: 5, py: 1.25, minWidth: 195, fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.02em" }}>
+              <Button
+                variant="contained"
+                component={RouterLink}
+                to="/kontakt"
+                sx={{
+                  px: { xs: 3, sm: 5 },
+                  py: 1.25,
+                  minWidth: { xs: 0, sm: 195 },
+                  width: { xs: "100%", sm: "auto" },
+                  maxWidth: { xs: "100%", sm: "none" },
+                  fontSize: "0.95rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.02em",
+                }}
+              >
                 {currentHero.buttonText}
               </Button>
             </Box>
@@ -564,6 +667,10 @@ export function HomePage() {
               sx={{
                 position: "absolute",
                 inset: 0,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: { xs: "center", md: "center" },
+                overflow: "hidden",
                 opacity: isCrossfading && nextHero ? 1 : 0,
                 transition: isCrossfading ? `opacity ${transitionMs}ms ease` : "none",
                 pointerEvents: "none",
@@ -571,38 +678,134 @@ export function HomePage() {
             >
               {nextHero ? (
                 <>
-                  <Typography sx={{ fontSize: { xs: "2rem", md: "3.1rem" }, lineHeight: 1.02, fontWeight: 700, mb: 0.15, letterSpacing: "-0.02em" }}>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "1.65rem", sm: "2rem", md: "3.1rem" },
+                      lineHeight: 1.08,
+                      fontWeight: 700,
+                      mb: { xs: 0.6, md: 0.15 },
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
                     {nextHero.title}
                   </Typography>
-                  <Typography sx={{ fontSize: { xs: "1.25rem", md: "1.8rem" }, fontWeight: 400, lineHeight: 1.3, maxWidth: 640, mb: 1.8 }}>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "1.05rem", sm: "1.25rem", md: "1.8rem" },
+                      fontWeight: 400,
+                      lineHeight: 1.35,
+                      maxWidth: 640,
+                      mb: { xs: 1.2, md: 1.8 },
+                    }}
+                  >
                     {nextHero.subtitle}
                   </Typography>
-                  <Typography component="p" sx={{ maxWidth: 640, opacity: 0.95, lineHeight: 1.5, fontSize: { xs: "1rem", md: "1.06rem" }, mb: 3, whiteSpace: "pre-line" }}>
+                  <Typography
+                    component="p"
+                    sx={{
+                      maxWidth: 640,
+                      opacity: 0.95,
+                      lineHeight: 1.55,
+                      fontSize: { xs: "0.94rem", md: "1.06rem" },
+                      mb: { xs: 2, md: 3 },
+                      whiteSpace: "pre-line",
+                    }}
+                  >
                     {nextHero.lines.join("\n")}
                   </Typography>
-                  <Button variant="contained" component={RouterLink} to="/kontakt" sx={{ px: 5, py: 1.25, minWidth: 195, fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.02em" }}>
+                  <Button
+                    variant="contained"
+                    component={RouterLink}
+                    to="/kontakt"
+                    sx={{
+                      px: { xs: 3, sm: 5 },
+                      py: 1.25,
+                      minWidth: { xs: 0, sm: 195 },
+                      width: { xs: "100%", sm: "auto" },
+                      maxWidth: { xs: "100%", sm: "none" },
+                      fontSize: "0.95rem",
+                      fontWeight: 800,
+                      letterSpacing: "0.02em",
+                    }}
+                  >
                     {nextHero.buttonText}
                   </Button>
                 </>
               ) : null}
             </Box>
           </Box>
+
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              flexShrink: 0,
+              flexGrow: 0,
+              height: { xs: 44, md: "auto" },
+              mt: { xs: "auto", md: 0 },
+              width: { xs: "100%", md: "auto" },
+              maxWidth: { xs: "100%", md: 520 },
+              position: { md: "absolute" },
+              right: { md: 86 },
+              bottom: { md: 72 },
+              zIndex: 2,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Stack direction="row" spacing={0.75} sx={{ display: { xs: "flex", md: "none" } }}>
+              {copy.heroSlides.map((_, index) => (
+                <Box
+                  key={index}
+                  component="button"
+                  type="button"
+                  aria-label={`Slide ${index + 1}`}
+                  aria-current={index === activeSlide}
+                  onClick={() => {
+                    if (index === activeSlideRef.current) return;
+                    setIsCrossfading(false);
+                    setNextSlide(null);
+                    transitionLockRef.current = false;
+                    queuedStepRef.current = 0;
+                    setActiveSlide(index);
+                    activeSlideRef.current = index;
+                  }}
+                  sx={{
+                    width: index === activeSlide ? 22 : 8,
+                    height: 8,
+                    p: 0,
+                    border: "none",
+                    borderRadius: 999,
+                    cursor: "pointer",
+                    backgroundColor: index === activeSlide ? "#fff" : "rgba(255,255,255,0.45)",
+                    transition: "width 180ms ease, background-color 180ms ease",
+                  }}
+                />
+              ))}
+            </Stack>
+            <Stack direction="row" spacing={1} sx={{ ml: { xs: "auto", md: 0 } }}>
+              <Button
+                onClick={goPrevSlide}
+                aria-label="Previous slide"
+                disableRipple={isMobile}
+                sx={heroNavButtonSx}
+              >
+                <ChevronLeftIcon />
+              </Button>
+              <Button
+                onClick={goNextSlide}
+                aria-label="Next slide"
+                disableRipple={isMobile}
+                sx={heroNavButtonSx}
+              >
+                <ChevronRightIcon />
+              </Button>
+            </Stack>
+          </Stack>
         </Container>
-        <Stack
-          direction="row"
-          spacing={1.2}
-          sx={{ position: "absolute", right: { xs: 68, md: 86 }, bottom: { xs: 58, md: 72 }, zIndex: 2 }}
-        >
-          <Button onClick={goPrevSlide} aria-label="Previous slide" sx={{ minWidth: 0, width: 50, height: 50, color: "#fff", backgroundColor: "primary.main", "&:hover": { backgroundColor: "#0a3a86", transform: "translateY(-2px)" }, transition: "all .25s ease" }}>
-            <ChevronLeftIcon />
-          </Button>
-          <Button onClick={goNextSlide} aria-label="Next slide" sx={{ minWidth: 0, width: 50, height: 50, color: "#fff", backgroundColor: "primary.main", "&:hover": { backgroundColor: "#0a3a86", transform: "translateY(-2px)" }, transition: "all .25s ease" }}>
-            <ChevronRightIcon />
-          </Button>
-        </Stack>
       </Box>
 
-      <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 } }}>
+      <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 }, px: { xs: 2, sm: 3 } }}>
         <RevealOnScroll>
           <Grid container spacing={{ xs: 3, md: 4 }} sx={{ alignItems: "stretch" }}>
             <Grid size={{ xs: 12, md: 5 }}>
@@ -666,7 +869,7 @@ export function HomePage() {
         </RevealOnScroll>
       </Container>
 
-      <Container maxWidth="xl" sx={{ pb: { xs: 4, md: 8 } }}>
+      <Container maxWidth="xl" sx={{ pb: { xs: 4, md: 8 }, px: { xs: 2, sm: 3 } }}>
         <RevealOnScroll>
           <Box
             sx={{

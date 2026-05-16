@@ -1,6 +1,7 @@
 import { Box, Container, Divider, Paper, Typography } from "@mui/material";
 import { Navigate, useParams } from "react-router-dom";
-import { useLocale, type Locale } from "../context/locale-context";
+import type { Locale } from "../context/locale";
+import { useLocale } from "../context/use-locale";
 
 type CorporateKey = "about" | "history" | "management" | "careers" | "quality-policy";
 
@@ -485,7 +486,7 @@ export function CorporatePage() {
   const { locale } = useLocale();
   const { section } = useParams<{ section: string }>();
 
-  if (!isCorporateKey(section)) return <Navigate to="/" replace />;
+  if (!isCorporateKey(section)) return <Navigate to="/kurumsal/about" replace />;
 
   const copy = contentByLocale[locale][section];
   const shared = extrasByLocale[locale][section];
@@ -503,9 +504,10 @@ export function CorporatePage() {
     : ({ xs: 120, md: 150, lg: 165 } as const);
 
   return (
-    <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 } }}>
-      <Box sx={{ px: { xs: 0.5, md: 1.5 } }}>
+    <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 }, px: { xs: 2, sm: 3 } }}>
+      <Box sx={{ px: { xs: 0, md: 1.5 } }}>
         <Typography
+          component="h1"
           variant="h3"
           sx={{
             mb: 2.4,
@@ -600,14 +602,15 @@ export function CorporatePage() {
                     pl: { xs: 1.3, md: 1.5 },
                     borderLeft: "3px solid rgba(30,64,175,0.55)",
                     display: "grid",
-                    gridTemplateColumns: "76px 1fr",
-                    gap: 1.1,
+                    gridTemplateColumns: { xs: "1fr", sm: "76px 1fr" },
+                    gap: { xs: 1, sm: 1.1 },
                     alignItems: "start",
                   }}
                 >
                   <Box
                     sx={{
-                      height: 60,
+                      height: { xs: 140, sm: 60 },
+                      width: { xs: "100%", sm: 76 },
                       borderRadius: 1,
                       backgroundImage: `url(${getItemImage(section, "cards", index)})`,
                       backgroundSize: "cover",
@@ -654,8 +657,8 @@ export function CorporatePage() {
                 sx={{
                   pr: { xs: 0.4, md: 0.8 },
                   display: isUnifiedCorporateSection ? "block" : "grid",
-                  gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : "64px 1fr",
-                  gap: isUnifiedCorporateSection ? 0 : 1,
+                  gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : { xs: "1fr", sm: "64px 1fr" },
+                  gap: isUnifiedCorporateSection ? 0 : { xs: 1, sm: 1 },
                   alignItems: "start",
                 }}
                 component="li"
@@ -663,7 +666,8 @@ export function CorporatePage() {
                 {!isUnifiedCorporateSection && (
                   <Box
                     sx={{
-                      height: 52,
+                      height: { xs: 120, sm: 52 },
+                      width: { xs: "100%", sm: 64 },
                       borderRadius: 1,
                       backgroundImage: `url(${getItemImage(section, "principles", index)})`,
                       backgroundSize: "cover",
@@ -741,15 +745,16 @@ export function CorporatePage() {
                   pr: isUnifiedCorporateSection ? 0 : 0.5,
                   borderTop: isUnifiedCorporateSection ? "none" : "1px solid rgba(30,64,175,0.3)",
                   display: isUnifiedCorporateSection ? "block" : "grid",
-                  gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : "64px 1fr",
-                  gap: isUnifiedCorporateSection ? 0 : 1,
+                  gridTemplateColumns: isUnifiedCorporateSection ? "1fr" : { xs: "1fr", sm: "64px 1fr" },
+                  gap: isUnifiedCorporateSection ? 0 : { xs: 1, sm: 1 },
                   alignItems: "start",
                 }}
               >
                 {!isUnifiedCorporateSection && (
                   <Box
                     sx={{
-                      height: 52,
+                      height: { xs: 120, sm: 52 },
+                      width: { xs: "100%", sm: 64 },
                       borderRadius: 1,
                       backgroundImage: `url(${getItemImage(section, "process", index)})`,
                       backgroundSize: "cover",
